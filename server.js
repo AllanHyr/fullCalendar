@@ -28,6 +28,11 @@ const storage = new Storage(connectionPool);
 router.setRoutes(app, "/events", storage);
 
 // add listeners to basic CRUD requests
+const Events = require("./events");
+const events = new Events(connectionPool);
+router.setRoutes(app, "/eventsWeek", events);
+
+// add listeners to basic CRUD requests
 const Ressource = require("./ressource");
 const ressource = new Ressource(connectionPool);
 router.setRoutes(app, "/ressources", ressource);
