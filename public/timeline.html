@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.11/index.global.min.js'></script>
+</head>
+<body>
+  <div id="calendar"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: [ 'resourceTimeline' ],
+        initialView: 'resourceTimelineWeek',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'resourceTimelineWeek,resourceTimelineDay'
+        },
+        resources: [
+          { id: 'a', title: 'Grande salle' },
+          { id: 'b', title: 'Petite salle' },
+          { id: 'c', title: 'Salle de réunion' },
+          { id: 'd', title: 'Salle omnisport' },
+          { id: 'e', title: 'Gymnase' }
+        ],
+        events: [
+          { id: '1', resourceId: 'a', start: '2024-06-03', end: '2024-06-04', title: 'Event 1' },
+          { id: '2', resourceId: 'a', start: '2024-06-05', end: '2024-06-06', title: 'Event 2' },
+          // Add more events here based on your schedule
+        ]
+      });
+
+      calendar.render();
+    });
+  </script>
+</body>
+</html>

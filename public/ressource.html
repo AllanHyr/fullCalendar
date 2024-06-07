@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.11/index.global.min.js'></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-html2canvas@latest/dist/jspdf-html2canvas.min.js"></script>
+</head>
+<body>
+    <div id='calendar'></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'resourceTimelineWeek',
+                resourceAreaWidth: '20%',
+                resources: [
+                    { id: 'grande-salle', title: 'Grande salle', children: [
+                        { id: 'grande-salle-lundi', title: 'Lundi' },
+                        { id: 'grande-salle-mardi', title: 'Mardi' },
+                        { id: 'grande-salle-mercredi', title: 'Mercredi' },
+                        { id: 'grande-salle-jeudi', title: 'Jeudi' },
+                        { id: 'grande-salle-vendredi', title: 'Vendredi' },
+                        { id: 'grande-salle-samedi', title: 'Samedi' },
+                        { id: 'grande-salle-dimanche', title: 'Dimanche' }
+                    ]},
+                    { id: 'petite-salle', title: 'Petite salle', children: [
+                        { id: 'petite-salle-a', title: 'Lundi' },
+                        { id: 'petite-salle-b', title: 'Mardi' },
+                        { id: 'petite-salle-c', title: 'Mercredi' },
+                        { id: 'petite-salle-jeudi', title: 'Jeudi' },
+                        { id: 'petite-salle-vendredi', title: 'Vendredi' },
+                        { id: 'petite-salle-samedi', title: 'Samedi' },
+                        { id: 'petite-salle-dimanche', title: 'Dimanche' }
+                    ]},
+                    { id: 'salle-de-reunion', title: 'Salle de réunion', children: [
+                        { id: 'salle-de-reunion-lundi', title: 'Lundi' },
+                        { id: 'salle-de-reunion-mardi', title: 'Mardi' },
+                        { id: 'salle-de-reunion-mercredi', title: 'Mercredi' },
+                        { id: 'salle-de-reunion-jeudi', title: 'Jeudi' },
+                        { id: 'salle-de-reunion-vendredi', title: 'Vendredi' },
+                        { id: 'salle-de-reunion-samedi', title: 'Samedi' },
+                        { id: 'salle-de-reunion-dimanche', title: 'Dimanche' }
+                    ]}
+                ],
+                events: [
+                    { id: '1', resourceId: 'grande-salle-vendredi', start: '2024-06-07T09:00:00', end: '2024-06-07T12:00:00', title: 'AGENCE LA FORET Pontcuelle' },
+                    { id: '2', resourceId: 'petite-salle-jeudi', start: '2024-06-06T09:00:00', end: '2024-06-06T16:00:00', title: 'ABBE Pontcuelle' },
+                    { id: '3', resourceId: 'salle-de-reunion-vendredi', start: '2024-06-07T18:00:00', end: '2024-06-07T21:00:00', title: 'TEST PORTAIL Pontcuelle' },
+                    { id: '4', resourceId: 'salle-de-reunion-vendredi', start: '2024-06-07T21:00:00', end: '2024-06-07T23:00:00', title: 'MAIRIE Pontcuelle' }
+                ]
+            });
+
+            calendar.render();
+        });
+    </script>
+</body>
+</html>

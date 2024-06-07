@@ -1,0 +1,19 @@
+{
+  "name": "fullcalendar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "date-format-lite": "^17.7.0",
+    "express": "^4.19.2",
+    "fullcalendar-scheduler": "^6.1.11",
+    "jspdf-html2canvas": "^1.5.2",
+    "mysql": "^2.18.1"
+  }
+}

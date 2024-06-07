@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang='fr'>
+  <head>
+    <meta charset='utf-8' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.11/index.global.min.js'></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-html2canvas@latest/dist/jspdf-html2canvas.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          headerToolbar: {
+            left: 'today prev,next',
+            center: 'title',
+            right: 'resourceTimelineDay,resourceTimelineWeek'
+          },
+          initialView: 'resourceTimelineDay',
+          resourceGroupField: 'building',
+          resources: '/ressources',
+          events: [
+          {
+              "id": 3003,
+              "resourceId": "a1",
+              "title": "event1",
+              "start": "2024-06-07 00:00",
+              "end": "2024-06-07 18:00"
+          },
+          {
+              "id": 3003,
+              "resourceId": "b4",
+              "title": "event1",
+              "start": "2024-06-07 08:00",
+              "end": "2024-06-07 16:30"
+          },
+          {
+              "id": 3003,
+              "resourceId": "a4",
+              "title": "event1",
+              "start": "2024-06-07 03:00",
+              "end": "2024-06-07 10:00"
+          }
+          ],
+        });
+
+
+        calendar.render();
+        
+
+        let btn = document.getElementById('btn');
+        let page = document.getElementById('calendar');
+
+        btn.addEventListener('click', function(){
+          html2PDF(page, {
+            jsPDF: {
+              format: 'a4',
+            },
+            imageType: 'image/jpeg',
+            output: './pdf/generate.pdf'
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <button id="btn">Generate</button>
+    <div id="calendar"></div>
+  </body>
+</html>

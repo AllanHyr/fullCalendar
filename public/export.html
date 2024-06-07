@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang='fr'>
+  <head>
+    <meta charset='utf-8' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.11/index.global.min.js'></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          headerToolbar: {
+            left: 'today prev,next',
+            center: 'title',
+            right: 'resourceTimelineDay,resourceTimelineWeek'
+          },
+          initialView: 'resourceTimelineDay',
+          resourceGroupField: 'building',
+          resources: [
+            { id: '1', building: '460 Bryant', title: 'Auditorium A' },
+            { id: '2', building: '460 Bryant', title: 'Auditorium B' },
+            { id: '3', building: '460 Bryant', title: 'Auditorium C' },
+            { id: '4', building: '460 Bryant', title: 'Auditorium D' }
+          ],
+          events: '/events'
+        });
+        calendar.render();
+
+        document.getElementById('exportButton').addEventListener('click', function() {
+        html2canvas(document.querySelector('#calendar')).then(canvas => {
+            var imgData = canvas.toDataURL('image/png');
+            var pdf = new jsPDF('landscape');
+            pdf.addImage(imgData, 'PNG', 10, 10);
+            pdf.save('calendar.pdf');
+        });
+    });
+      });
+    </script>
+  </head>
+  <body>
+    <button id="exportButton">Exporter en PDF</button>
+    <div id='calendar'></div>
+    <script src="../src/calendar.js" type="module"></script>
+  </body>
+</html>
