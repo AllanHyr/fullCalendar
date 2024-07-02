@@ -1,5 +1,6 @@
 const express = require("express"); // use Express
 const bodyParser = require("body-parser"); // for parsing POST requests
+const cors = require("cors"); // for enabling CORS
 const app = express(); // create application
 const port = 3200; // port for listening
 
@@ -21,6 +22,9 @@ const router = require("./router");
 // open connection to mysql
 const connectionPool = mysql.createPool(mysqlConfig);
 connectionPool.query = util.promisify(connectionPool.query);
+
+// Use the CORS middleware
+app.use(cors());
  
 // add listeners to basic CRUD requests
 const Storage = require("./storage");

@@ -18,10 +18,23 @@
             { id: '1', building: '460 Bryant', title: 'Auditorium A' },
             { id: '2', building: '460 Bryant', title: 'Auditorium B' },
             { id: '3', building: '460 Bryant', title: 'Auditorium C' },
-            { id: '4', building: '460 Bryant', title: 'Auditorium D' }
+            { id: '4', building: '460 Bryant', title: 'Auditorium D' },
+            { id: '5', building: '460 Bryant', title: 'Auditorium E' },
+            { id: '6', building: '460 Bryant', title: 'Auditorium F' },
+            { id: '10', building: '460 Bryant', title: 'Auditorium D' },
+            { id: '9', building: '460 Bryant', title: 'Auditorium E' },
+            { id: '8', building: '460 Bryant', title: 'Auditorium F' },
+            { id: '7', building: '460 Bryant', title: 'Auditorium G' }
           ],
-          events: '/events'
+          events: '/events',
+          filterResourcesWithEvents: true,
+          resourceRender: function(info) {
+            if (['1', '2', '3', '4', '5'].indexOf(info.resource.id) === -1) {
+              info.el.style.display = 'none';
+            }
+          }
         });
+        
             calendar.render();
           
           });

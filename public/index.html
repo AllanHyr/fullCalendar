@@ -18,13 +18,39 @@
           initialView: 'resourceTimelineDay',
           resourceGroupField: 'building',
           resources: '/ressources',
-          events: '/eventsWeek',
+          datesSet: function(info) {
+              loadEventsForWeek(info.start);
+          },
+          events: function(fetchInfo, successCallback, failureCallback) {
+              loadEventsForWeek(fetchInfo.start, successCallback, failureCallback);
+          }
         });
 
 
         calendar.render();
         
+        function loadEventsForWeek(startDate, successCallback, failureCallback) {
+          var start = new Date(startDate);
+          var end = new Date(start);
+          end.setDate(end.getDate() + 7);
 
+          var startStr = start.toISOString();
+          var endStr = end.toISOString();
+
+          // Faire l'appel AJAX pour obtenir les événements pour les 7 jours
+          fetch(`/eventsWeek?start=${startStr}&end=${endStr}`)
+            .then(response => response.json())
+            .then(data => {
+              if (successCallback) {
+                  successCallback(data);
+              }
+            })
+            .catch(error => {
+              if (failureCallback) {
+                  failureCallback(error);
+              }
+            });
+        }
         let btn = document.getElementById('btn');
         let page = document.getElementById('calendar');
 

@@ -20,8 +20,8 @@ class Events {
             let date = new Date(entry.start_date);
             entry.resourceId = entry.section_id + '_' + date.getDay();
             entry.title = entry.text
-            entry.start = entry.start_date.format("YYYY-MM-DD hh:mm");
-            entry.end = entry.end_date.format("YYYY-MM-DD hh:mm");
+            entry.start = "2024-05-31 " + entry.start_date.format("hh:mm");
+            entry.end = "2024-05-31 " + entry.end_date.format("hh:mm");
         });
         return result;
     }
