@@ -41,6 +41,11 @@ const Ressource = require("./ressource");
 const ressource = new Ressource(connectionPool);
 router.setRoutes(app, "/ressources", ressource);
 
+// add listeners to basic CRUD requests
+const PieceSalle = require("./pieceSalle");
+const pieceSalle = new PieceSalle(connectionPool);
+router.setRoutes(app, "/pieceSalle", pieceSalle);
+
 // It's necessary for parsing POST requests
 // the line below is used for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended:true}));
