@@ -19,8 +19,8 @@ class Storage {
             // format date and time
             entry.resourceId = entry.section_id
             entry.title = entry.text
-            entry.start = entry.start_date.format("YYYY-MM-DD hh:mm");
-            entry.end = entry.end_date.format("YYYY-MM-DD hh:mm");
+            entry.start = entry.start_date.format("YYYY-DD-MM hh:mm");
+            entry.end = entry.end_date.format("YYYY-DD-MM hh:mm");
         });
         return result;
     }
@@ -28,8 +28,8 @@ class Storage {
     // create new event
     async insert(data) {
         let result = await this._db.query(
-            "INSERT INTO ?? (`start_date`, `end_date`, `text`) VALUES (?,?,?)",
-            [this.table, data.start_date, data.end_date, data.text]);
+            "INSERT INTO ?? (`start_date`, `end_date`, `text`, `section_id`) VALUES (?,?,?,?)",
+            [this.table, data.start_date, data.end_date, data.text, data.section_id]);
  
         return {
             action: "inserted",

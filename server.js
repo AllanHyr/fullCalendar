@@ -7,7 +7,7 @@ const port = 3200; // port for listening
 // MySQL will be used for db access and util to promisify queries
 const util = require("util");
 const mysql = require('mysql');
- 
+
 // use your own parameters for database
 const mysqlConfig = {
     "connectionLimit": 10,
@@ -18,14 +18,19 @@ const mysqlConfig = {
 };
 
 const router = require("./router");
- 
+
 // open connection to mysql
 const connectionPool = mysql.createPool(mysqlConfig);
 connectionPool.query = util.promisify(connectionPool.query);
 
 // Use the CORS middleware
 app.use(cors());
- 
+
+// It's necessary for parsing POST requests
+// the line below is used for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // Ajouté pour analyser les requêtes JSON
+
 // add listeners to basic CRUD requests
 const Storage = require("./storage");
 const storage = new Storage(connectionPool);
@@ -46,10 +51,6 @@ const PieceSalle = require("./pieceSalle");
 const pieceSalle = new PieceSalle(connectionPool);
 router.setRoutes(app, "/pieceSalle", pieceSalle);
 
-// It's necessary for parsing POST requests
-// the line below is used for parsing application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended:true}));
- 
 // return static pages from the "./public" directory
 app.use(express.static(__dirname + "/public"));
 
