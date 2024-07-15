@@ -19,8 +19,8 @@ class Storage {
             // format date and time
             entry.resourceId = entry.section_id
             entry.title = entry.text
-            entry.start = entry.start_date.format("YYYY-DD-MM hh:mm");
-            entry.end = entry.end_date.format("YYYY-DD-MM hh:mm");
+            entry.start = entry.start_date.format("YYYY-MM-DD hh:mm");
+            entry.end = entry.end_date.format("YYYY-MM-DD hh:mm");
         });
         return result;
     }
