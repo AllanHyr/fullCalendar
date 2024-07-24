@@ -8,61 +8,58 @@ class PieceSalle {
         this.table_3 = "batiments";
     }
  
-    async getAll(params) {
+    async getAll(params) {    
         let pieces = [];
         let salles = [];
         let batiments = [];
         let query = "SELECT * FROM ??";
-        let queryParams = [
-            this.table_1
-        ];
+        let queryParams;
     
+        // Get all pieces
+        queryParams = [this.table_1];
         let result = await this._db.query(query, queryParams);
-        
         result.forEach(entry => {
-            let newPiece = {
+            pieces.push({
                 id: entry.id,
                 title: entry.title,
                 groupId: entry.fk_salles
-            }
-            pieces.push(newPiece);
+            });
         });
-
-        
-        query = "SELECT * FROM ??";
-        queryParams = [
-            this.table_2
-        ];
     
+        // Get all salles
+        queryParams = [this.table_2];
         result = await this._db.query(query, queryParams);
-        
         result.forEach(entry => {
-            let newPiece = {
+            salles.push({
                 id: entry.id,
                 title: entry.title,
                 groupId: entry.fk_batiments
-            }
-            salles.push(newPiece);
+            });
         });
-        
-        query = "SELECT * FROM ??";
-        queryParams = [
-            this.table_3
-        ];
     
+        // Get all batiments
+        queryParams = [this.table_3];
         result = await this._db.query(query, queryParams);
-        
         result.forEach(entry => {
-            let newBatiments = {
+            batiments.push({
                 id: entry.id,
-                title: entry.title
-            }
-            batiments.push(newBatiments);
+                title: entry.title,
+                salles: []
+            });
         });
     
-        return { pieces, salles, batiments };
-    }
+        // Add pieces to their corresponding salles
+        salles.forEach(salle => {
+            salle.pieces = pieces.filter(piece => piece.groupId === salle.id);
+        });
     
+        // Add salles to their corresponding batiments
+        batiments.forEach(batiment => {
+            batiment.salles = salles.filter(salle => salle.groupId === batiment.id);
+        });
+    
+        return batiments;
+    }
 }
  
 module.exports = PieceSalle;
