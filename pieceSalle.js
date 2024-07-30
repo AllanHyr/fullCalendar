@@ -6,6 +6,7 @@ class PieceSalle {
         this.table_1 = "pieces";
         this.table_2 = "salles";
         this.table_3 = "batiments";
+        this.nbRessource = 3;
     }
  
     async getAll(params) {    
@@ -13,6 +14,7 @@ class PieceSalle {
         let salles = [];
         let batiments = [];
         let query = "SELECT * FROM ??";
+        let nbRessource = this.nbRessource;
         let queryParams;
     
         // Get all pieces
@@ -44,21 +46,21 @@ class PieceSalle {
             batiments.push({
                 id: entry.id,
                 title: entry.title,
-                salles: []
+                children: []
             });
         });
     
         // Add pieces to their corresponding salles
         salles.forEach(salle => {
-            salle.pieces = pieces.filter(piece => piece.groupId === salle.id);
+            salle.children = pieces.filter(piece => piece.groupId === salle.id);
         });
     
         // Add salles to their corresponding batiments
         batiments.forEach(batiment => {
-            batiment.salles = salles.filter(salle => salle.groupId === batiment.id);
+            batiment.children = salles.filter(salle => salle.groupId === batiment.id);
         });
     
-        return batiments;
+        return { batiments, nbRessource };
     }
 }
  
